@@ -1,0 +1,51 @@
+extends ../layouts/sign
+
+block content
+  div#login-phone-step1
+    h5 Login with phone number
+
+    form#login-phone-number(method='POST')
+      .form-group.input-group-lg
+        input.form-control(type='text' name='firstName' placeholder='Firstname' required='' autofocus='')
+      .form-group.input-group-lg
+        input.form-control(type='text' name='lastName' placeholder='Lastname' required='')
+      .form-group.input-group-lg
+        input.form-control(type='text' name='phoneNumber' placeholder='Phone number' required='' autofocus='')
+        #recaptcha-container
+      button.btn.btn-primary.btn-lg.btn-block(type='submit') Sign in
+
+  div#login-phone-step2
+    h5 Verify code
+
+    form#phone-number-verify(method='POST')
+      .form-group.input-group-lg
+        input.form-control(type='text' name='code' placeholder='Code' required='' autofocus='')
+      button.btn.btn-primary.btn-lg.btn-block(type='submit') Verify
+
+  hr
+  p.text-muted Login with your social media account.
+  ul.list-inline
+    li.list-inline-item
+      a.btn.btn-floating.btn-facebook(href='#')
+        i.fa.fa-facebook
+    li.list-inline-item
+      a.btn.btn-floating.btn-twitter(href='#')
+        i.fa.fa-twitter
+    li.list-inline-item
+      a.btn.btn-floating.btn-dribbble(href='#')
+        i.fa.fa-dribbble
+    li.list-inline-item
+      a.btn.btn-floating.btn-linkedin(href='#')
+        i.fa.fa-linkedin
+    li.list-inline-item
+      a.btn.btn-floating.btn-google(href='#')
+        i.fa.fa-google
+    li.list-inline-item
+      a.btn.btn-floating.btn-behance(href='#')
+        i.fa.fa-behance
+    li.list-inline-item
+      a.btn.btn-floating.btn-instagram(href='#')
+        i.fa.fa-instagram
+  hr
+  p.text-muted Don&apos;t have an account?
+  a.btn.btn-outline-light.btn-sm(href='/register') Register now!

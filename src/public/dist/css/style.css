@@ -1,0 +1,19 @@
+body.form-membership {
+  background: url(/dist/images/bg.png) #fff;
+}
+#login-phone-step2 {
+  display: none;
+}
+
+.btn-email {
+  background-color: #B23121;
+  color: #fff;
+}
+
+.btn .social-icon {
+  margin-right: 10px;
+}
+
+.register-option .btn {
+  margin-bottom: 15px;
+}

@@ -1,0 +1,102 @@
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
+  meta(http-equiv='X-UA-Compatible' content='ie=edge')
+  title Soho - Chat and Discussion Platform
+
+  link(rel='icon' href='dist/images/favicon.png' type='image/png')
+  link(rel='stylesheet' href='dist/css/soho.min.css')
+  link(rel='stylesheet' href='dist/css/style.css')
+
+body
+  // disconnected modal
+  include ../components/modals/disconnected-modal
+
+  // call modal
+  include ../components/modals/call-modal
+
+  // add friends modal
+  include ../components/modals/add-friends-modal
+
+  // new group modal
+  include ../components/modals/new-group-modal
+
+  // setting modal
+  include ../components/modals/setting-modal
+
+  // edit profile modal
+  include ../components/modals/edit-profile-modal
+
+  // layout
+  .layout
+    // navigation
+    include ../components/navigation
+
+    // content
+    .content
+      block content
+
+  script(src='https://code.jquery.com/jquery-3.4.1.min.js' integrity='sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=' crossorigin='anonymous')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous')
+  script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous')
+  script(src='vendors/jquery/jquery.nicescroll.min.js')
+  script(src='https://www.gstatic.com/firebasejs/6.6.0/firebase-app.js')
+  script(src='https://www.gstatic.com/firebasejs/6.6.0/firebase-auth.js')
+  script(src='https://www.gstatic.com/firebasejs/6.6.0/firebase-firestore.js')
+  script(src='https://www.gstatic.com/firebasejs/6.6.0/firebase-storage.js')
+  script(src='https://unpkg.com/axios/dist/axios.min.js')
+  script(src='dist/js/soho.min.js')
+  script(src='dist/js/examples.js')
+  script(src='/socket.io/socket.io.js')
+
+  script.
+    const firebaseConfig = {
+      apiKey: '#{firebaseApiKey}',
+      authDomain: '#{firebaseProjectId}.firebaseapp.com',
+      databaseURL: 'https://#{firebaseProjectId}.firebaseio.com',
+      projectId: '#{firebaseProjectId}',
+      storageBucket: 'gs://messenger-a2f90.appspot.com',
+      messagingSenderId: '#{firebaseSenderId}',
+      appId: '#{firebaseAppId}'
+    };
+
+    firebase.initializeApp(firebaseConfig);
+  script.
+    $(function () {
+      const socket = io();
+      $('form#chat-message').submit((e) => {
+        e.preventDefault();
+        socket.emit('chat message', $('#chat-message input').val());
+        $('#chat-message input').val('');
+        return false;
+      })
+      socket.on('chat message', (msg) => {
+        $(.messages).append(`<div class="message-item outgoing-message"><div class="message-content">${msg}</div>
+        <div class="message-action">Am 09:34<i class="ti-double-check"></i></div></div>`);
+      })
+    })
+  script(src='dist/js/home.js')
+  #ascrail2000.nicescroll-rails.nicescroll-rails-vr(style='width: 4px; z-index: auto; cursor: default; position: absolute; top: 530.797px; left: 1354px; height: 72px; display: none; opacity: 0;')
+    .nicescroll-cursors(style='position: relative; top: 0px; float: right; width: 4px; height: 72px; background-color: rgba(66, 66, 66, 0.2); border: 0px; background-clip: padding-box; border-radius: 5px;')
+  #ascrail2000-hr.nicescroll-rails.nicescroll-rails-hr(style='height: 4px; z-index: auto; top: 598.797px; left: 1076px; position: absolute; cursor: default; display: none; width: 282px; opacity: 0;')
+    .nicescroll-cursors(style='position: absolute; top: 0px; height: 4px; width: 188px; background-color: rgba(66, 66, 66, 0.2); border: 0px; background-clip: padding-box; border-radius: 5px; left: 0px;')
+  #ascrail2001.nicescroll-rails.nicescroll-rails-vr(style='width: 4px; z-index: auto; cursor: default; position: absolute; top: 136px; left: 1378px; height: 481px; opacity: 0; display: block;')
+    .nicescroll-cursors(style='position: relative; top: 195px; float: right; width: 4px; height: 286px; background-color: rgba(66, 66, 66, 0.2); border: 0px; background-clip: padding-box; border-radius: 5px;')
+  #ascrail2001-hr.nicescroll-rails.nicescroll-rails-hr(style='height: 4px; z-index: auto; top: 613px; left: 460px; position: absolute; cursor: default; opacity: 0; display: none; width: 918px;')
+    .nicescroll-cursors(style='position: absolute; top: 0px; height: 4px; width: 922px; background-color: rgba(66, 66, 66, 0.2); border: 0px; background-clip: padding-box; border-radius: 5px; left: 0px;')
+  #ascrail2002.nicescroll-rails.nicescroll-rails-vr(style='width: 4px; z-index: auto; cursor: default; position: absolute; top: 185px; left: 426px; height: 543px; opacity: 0; display: none;')
+    .nicescroll-cursors(style='position: relative; top: 0px; float: right; width: 4px; height: 20px; background-color: rgba(66, 66, 66, 0.2); border: 0px; background-clip: padding-box; border-radius: 5px;')
+  #ascrail2002-hr.nicescroll-rails.nicescroll-rails-hr(style='height: 4px; z-index: auto; top: 724px; left: 100px; position: absolute; cursor: default; opacity: 0; display: none;')
+    .nicescroll-cursors(style='position: absolute; top: 0px; height: 4px; width: 0px; background-color: rgba(66, 66, 66, 0.2); border: 0px; background-clip: padding-box; border-radius: 5px; left: 0px;')
+  #ascrail2003.nicescroll-rails.nicescroll-rails-vr(style='width: 4px; z-index: auto; cursor: default; position: absolute; top: 0px; left: -4px; height: 0px; display: none;')
+    .nicescroll-cursors(style='position: relative; top: 0px; float: right; width: 4px; height: 0px; background-color: rgba(66, 66, 66, 0.2); border: 0px; background-clip: padding-box; border-radius: 5px;')
+  #ascrail2003-hr.nicescroll-rails.nicescroll-rails-hr(style='height: 4px; z-index: auto; top: -4px; left: 0px; position: absolute; cursor: default; display: none;')
+    .nicescroll-cursors(style='position: absolute; top: 0px; height: 4px; width: 0px; background-color: rgba(66, 66, 66, 0.2); border: 0px; background-clip: padding-box; border-radius: 5px;')
+  #ascrail2004.nicescroll-rails.nicescroll-rails-vr(style='width: 4px; z-index: auto; cursor: default; position: absolute; top: 0px; left: -4px; height: 0px; display: none;')
+    .nicescroll-cursors(style='position: relative; top: 0px; float: right; width: 4px; height: 0px; background-color: rgba(66, 66, 66, 0.2); border: 0px; background-clip: padding-box; border-radius: 5px;')
+  #ascrail2004-hr.nicescroll-rails.nicescroll-rails-hr(style='height: 4px; z-index: auto; top: -4px; left: 0px; position: absolute; cursor: default; display: none;')
+    .nicescroll-cursors(style='position: absolute; top: 0px; height: 4px; width: 0px; background-color: rgba(66, 66, 66, 0.2); border: 0px; background-clip: padding-box; border-radius: 5px;')
+  #ascrail2005.nicescroll-rails.nicescroll-rails-vr(style='width: 4px; z-index: auto; cursor: default; position: absolute; top: 110px; left: 1378px; height: 618px; display: none; opacity: 0;')
+    .nicescroll-cursors(style='position: relative; top: 0px; float: right; width: 4px; height: 402px; background-color: rgba(66, 66, 66, 0.2); border: 0px; background-clip: padding-box; border-radius: 5px;')
+  #ascrail2005-hr.nicescroll-rails.nicescroll-rails-hr(style='height: 4px; z-index: auto; top: 724px; left: 1052px; position: absolute; cursor: default; display: none; width: 326px; opacity: 0;')
+    .nicescroll-cursors(style='position: absolute; top: 0px; height: 4px; width: 330px; background-color: rgba(66, 66, 66, 0.2); border: 0px; background-clip: padding-box; border-radius: 5px; left: 0px;')

@@ -1,0 +1,119 @@
+#editProfileModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+    .modal-dialog.modal-dialog-centered.modal-dialog-zoom(role='document')
+      .modal-content
+        .modal-header
+          h5.modal-title
+            i.ti-pencil
+            |  Profile Edit
+          button.close(type='button' data-dismiss='modal' aria-label='Close')
+            i.ti-close
+        .modal-body
+          ul.nav.nav-tabs(role='tablist')
+            li.nav-item
+              a.nav-link.active(data-toggle='tab' href='#personal' role='tab' aria-controls='personal' aria-selected='true') Personal
+            li.nav-item
+              a.nav-link(data-toggle='tab' href='#about' role='tab' aria-controls='about' aria-selected='false') About
+            li.nav-item
+              a.nav-link(data-toggle='tab' href='#social-links' role='tab' aria-controls='social-links' aria-selected='false') Social Links
+          .tab-content
+            #personal.tab-pane.show.active(role='tabpanel')
+              form
+                .form-group
+                  label.col-form-label(for='fullname') Fullname
+                  .input-group
+                    .input-group-prepend
+                      span.input-group-text
+                        i.ti-user
+                    input#fullname.form-control(type='text')
+                .form-group
+                  label.col-form-label Avatar
+                  .d-flex.align-items-center
+                    div
+                      figure.avatar.mr-3.item-rtl
+                        img.rounded-circle(src='dist/images/man_avatar3.jpg')
+                    .custom-file
+                      input#customFile.custom-file-input(type='file')
+                      label.custom-file-label(for='customFile') Choose file
+                .form-group
+                  label.col-form-label(for='city') City
+                  .input-group
+                    .input-group-prepend
+                      span.input-group-text
+                        i.ti-map-alt
+                    input#city.form-control(type='text')
+                .form-group
+                  label.col-form-label(for='phone') Phone
+                  .input-group
+                    .input-group-prepend
+                      span.input-group-text
+                        i.ti-mobile
+                    input#phone.form-control(type='text' placeholder='(555) 555 55 55')
+                .form-group
+                  label.col-form-label(for='website') Website
+                  .input-group
+                    .input-group-prepend
+                      span.input-group-text
+                        i.ti-link
+                    input#website.form-control(type='text')
+            #about.tab-pane(role='tabpanel')
+              form(action='')
+                .form-group
+                  label.col-form-label(for='about-text')
+                    | Write a few words that describe
+                    | you
+                  textarea#about-text.form-control
+                .custom-control.custom-checkbox
+                  input#customCheck1.custom-control-input(type='checkbox' checked='')
+                  label.custom-control-label(for='customCheck1') View profile
+            #social-links.tab-pane(role='tabpanel')
+              form(action='')
+                .form-group
+                  .input-group
+                    .input-group-prepend
+                      span.input-group-text.bg-facebook
+                        i.ti-facebook
+                    input.form-control(type='text' placeholder='Username')
+                .form-group
+                  .input-group
+                    .input-group-prepend
+                      span.input-group-text.bg-twitter
+                        i.ti-twitter
+                    input.form-control(type='text' placeholder='Username')
+                .form-group
+                  .input-group
+                    .input-group-prepend
+                      span.input-group-text.bg-instagram
+                        i.ti-instagram
+                    input.form-control(type='text' placeholder='Username')
+                .form-group
+                  .input-group
+                    .input-group-prepend
+                      span.input-group-text.bg-linkedin
+                        i.ti-linkedin
+                    input.form-control(type='text' placeholder='Username')
+                .form-group
+                  .input-group
+                    .input-group-prepend
+                      span.input-group-text.bg-dribbble
+                        i.ti-dribbble
+                    input.form-control(type='text' placeholder='Username')
+                .form-group
+                  .input-group
+                    .input-group-prepend
+                      span.input-group-text.bg-youtube
+                        i.ti-youtube
+                    input.form-control(type='text' placeholder='Username')
+                .form-group
+                  .input-group
+                    .input-group-prepend
+                      span.input-group-text.bg-google
+                        i.ti-google
+                    input.form-control(type='text' placeholder='Username')
+                .form-group
+                  .input-group
+                    .input-group-prepend
+                      span.input-group-text.bg-whatsapp
+                        i.fa.fa-whatsapp
+                    input.form-control(type='text' placeholder='Username')
+        .modal-footer
+          button.btn.btn-primary(type='button') Save

@@ -1,0 +1,44 @@
+extends ../layouts/sign
+
+block content
+  h5 Sign in
+
+  form.signin
+    .form-group.input-group-lg
+      input#email.form-control(type='text' placeholder='email' required='' autofocus='')
+    .form-group.input-group-lg
+      input#password.form-control(type='password' placeholder='Password' required='')
+      #recaptcha-container
+    .form-group.d-flex.justify-content-between
+      .custom-control.custom-checkbox
+        input#customCheck1.custom-control-input(type='checkbox' checked='')
+        label.custom-control-label(for='customCheck1') Remember me
+      a(href='/reset-password') Reset password
+    button.btn.btn-primary.btn-lg.btn-block Sign in
+    hr
+    p.text-muted Login with your social media account.
+    ul.list-inline
+      li.list-inline-item
+        a.btn.btn-floating.btn-facebook(href='#')
+          i.fa.fa-facebook
+      li.list-inline-item
+        a.btn.btn-floating.btn-twitter(href='#')
+          i.fa.fa-twitter
+      li.list-inline-item
+        a.btn.btn-floating.btn-dribbble(href='#')
+          i.fa.fa-dribbble
+      li.list-inline-item
+        a.btn.btn-floating.btn-linkedin(href='#')
+          i.fa.fa-linkedin
+      li.list-inline-item
+        a.btn.btn-floating.btn-google(href='#')
+          i.fa.fa-google
+      li.list-inline-item
+        a.btn.btn-floating.btn-behance(href='#')
+          i.fa.fa-behance
+      li.list-inline-item
+        a.btn.btn-floating.btn-instagram(href='#')
+          i.fa.fa-instagram
+    hr
+    p.text-muted Don&apos;t have an account?
+    a.btn.btn-outline-light.btn-sm(href='/register') Register now!

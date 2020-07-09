@@ -1,0 +1,75 @@
+#settingModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+    .modal-dialog.modal-dialog-centered.modal-dialog-zoom(role='document')
+      .modal-content
+        .modal-header
+          h5.modal-title
+            i.ti-settings
+            |  Settings
+          button.close(type='button' data-dismiss='modal' aria-label='Close')
+            i.ti-close
+        .modal-body
+          ul.nav.nav-tabs(role='tablist')
+            li.nav-item
+              a.nav-link.active(data-toggle='tab' href='#account' role='tab' aria-controls='account' aria-selected='true') Account
+            li.nav-item
+              a.nav-link(data-toggle='tab' href='#notification' role='tab' aria-controls='notification' aria-selected='false') Notification
+            li.nav-item
+              a.nav-link(data-toggle='tab' href='#contact' role='tab' aria-controls='contact' aria-selected='false') Security
+          .tab-content
+            #account.tab-pane.show.active(role='tabpanel')
+              .form-item.custom-control.custom-switch
+                input#customSwitch1.custom-control-input(type='checkbox' checked='')
+                label.custom-control-label(for='customSwitch1') Allow connected contacts
+              .form-item.custom-control.custom-switch
+                input#customSwitch2.custom-control-input(type='checkbox' checked='')
+                label.custom-control-label(for='customSwitch2') Confirm message requests
+              .form-item.custom-control.custom-switch
+                input#customSwitch3.custom-control-input(type='checkbox' checked='')
+                label.custom-control-label(for='customSwitch3') Profile privacy
+              .form-item.custom-control.custom-switch
+                input#customSwitch4.custom-control-input(type='checkbox')
+                label.custom-control-label(for='customSwitch4') Developer mode options
+              .form-item.custom-control.custom-switch
+                input#customSwitch5.custom-control-input(type='checkbox' checked='')
+                label.custom-control-label(for='customSwitch5')
+                  | Two-step security
+                  | verification
+            #notification.tab-pane(role='tabpanel')
+              .form-item.custom-control.custom-switch
+                input#customSwitch6.custom-control-input(type='checkbox' checked='')
+                label.custom-control-label(for='customSwitch6')
+                  | Allow mobile
+                  | notifications
+              .form-item.custom-control.custom-switch
+                input#customSwitch7.custom-control-input(type='checkbox')
+                label.custom-control-label(for='customSwitch7')
+                  | Notifications from your
+                  | friends
+              .form-item.custom-control.custom-switch
+                input#customSwitch8.custom-control-input(type='checkbox')
+                label.custom-control-label(for='customSwitch8')
+                  | Send notifications by
+                  | email
+            #contact.tab-pane(role='tabpanel')
+              .form-item.custom-control.custom-switch
+                input#customSwitch9.custom-control-input(type='checkbox')
+                label.custom-control-label(for='customSwitch9')
+                  | Suggest changing passwords every
+                  | month.
+              .form-item.custom-control.custom-switch
+                input#customSwitch10.custom-control-input(type='checkbox' checked='')
+                label.custom-control-label(for='customSwitch10')
+                  | Let me know about suspicious
+                  | entries to your account
+              .form-item
+                p
+                  a(data-toggle='collapse' href='#collapseExample' role='button' aria-expanded='false' aria-controls='collapseExample')
+                    span.ti-plus.btn-icon
+                    |  Security Questions
+                #collapseExample.collapse
+                  .form-group
+                    input.form-control(type='text' placeholder='Question 1')
+                  .form-group
+                    input.form-control(type='text' placeholder='Question 2')
+        .modal-footer
+          button.btn.btn-primary(type='button') Save

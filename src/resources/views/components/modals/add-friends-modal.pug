@@ -1,0 +1,20 @@
+#addFriends.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+    .modal-dialog.modal-dialog-centered.modal-dialog-zoom(role='document')
+      .modal-content
+        .modal-header
+          h5.modal-title
+            i.ti-user
+            |  Add Friends
+          button.close(type='button' data-dismiss='modal' aria-label='Close')
+            i.ti-close
+        .modal-body
+          .alert.alert-info Send invitations to friends.
+          form(action='')
+            .form-group
+              label.col-form-label(for='emails') Email addresses
+              input#emails.form-control(type='text' required='' autofocus='')
+            .form-group
+              label.col-form-label(for='message') Invitation message
+              textarea#message.form-control(required='')
+        .modal-footer
+          button#addFriendBtn.btn.btn-primary(type='button') Submit

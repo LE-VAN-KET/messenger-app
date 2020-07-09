@@ -1,0 +1,37 @@
+#newGroup.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+    .modal-dialog.modal-dialog-centered.modal-dialog-zoom(role='document')
+      .modal-content
+        .modal-header
+          h5.modal-title
+            i.fa.fa-users
+            |  New Group
+          button.close(type='button' data-dismiss='modal' aria-label='Close')
+            i.ti-close
+        .modal-body
+          form
+            .form-group
+              label.col-form-label(for='group_name') Group name
+              input#group_name.form-control(type='text')
+            .form-group
+              label.col-form-label(for='users') Users
+              input#users.form-control(type='text' placeholder='Find user')
+            .form-group
+              .avatar-group
+                figure.avatar
+                  span.avatar-title.bg-success.rounded-circle E
+                figure.avatar
+                  img.rounded-circle(src='dist/images/women_avatar1.jpg')
+                figure.avatar
+                  span.avatar-title.bg-danger.rounded-circle S
+                figure.avatar
+                  img.rounded-circle(src='dist/images/man_avatar2.jpg')
+                figure.avatar
+                  span.avatar-title.bg-info.rounded-circle C
+                a(href='#')
+                  figure.avatar
+                    span.avatar-title.bg-primary.rounded-circle +
+            .form-group
+              label.col-form-label(for='description') Description
+              textarea#description.form-control
+        .modal-footer
+          button.btn.btn-primary(type='button') Create Group
