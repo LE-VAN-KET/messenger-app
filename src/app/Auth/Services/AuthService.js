@@ -1,12 +1,16 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import Repository from '../Repositories/AuthRepository';
+import dotenv from 'dotenv';
+dotenv.config();
+import AuthRepository from '../Repositories/AuthRepository';
 
-class AuthService {
+const repository = new AuthRepository();
+
+class AuthService extends AuthRepository {
   static service;
 
   constructor() {
-    this.repository = Repository.getRepository();
+    super();
   }
 
   static getService() {
@@ -16,13 +20,14 @@ class AuthService {
     return this.service;
   }
 
-  static async hashPassword(password) {
+  async hashPassword(password) {
     try {
-      this.hash = await bcrypt.hashSync(password, 10);
+      this.hash = await bcrypt.hash(password, 10);
+      console.log(this.hash);
+      return this.hash;
     } catch (e) {
       console.log(e);
     }
-    return this.hash;
   }
 
   generateToken(user, secretSignature, tokenLife) {
@@ -57,6 +62,29 @@ class AuthService {
         return resolve(decoded.data);
       });
     });
+  }
+
+  async createUser(data) {
+    const { firstName, lastName, email, password, avatar } = data;
+    const Password = await this.hashPassword(password);
+    const newUser = {
+      firstName,
+      lastName,
+      email,
+      password: Password,
+      avatar,
+    };
+    return repository.create(newUser, '*');
+  }
+
+  async singin(data) {
+    const user = await repository.getBy({ email: data.email }, '*');
+    let Token, refreshToken;
+    const token = this.generateToken(user, process.env.ACCESS_TOKEN_SECRET, '20h');
+    const resetToken = this.generateToken(user, process.env.REFRESH_TOKEN_SECRET, '7d');
+    Token = await token;
+    refreshToken = await resetToken;
+    return [Token, refreshToken];
   }
 }
 

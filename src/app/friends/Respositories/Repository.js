@@ -1,28 +1,25 @@
-import knex from '../../database/connection';
-import config from './config.relationship';
+import config from '../config.relationship';
+import BaseRepository from '../../../infrastructure/Repositories/BaseRepository';
 
-class FriendRepository {
-  static repository;
+class FriendRepository extends BaseRepository {
+  // static repository;
 
   constructor() {
-    this.tableName = 'friends';
+    super();
+    this.tableName = this.getTableName();
   }
 
-  static getRepository() {
-    if (!this.repository) {
-      this.repository = new this();
-    }
-
-    return this.repository;
+  getTableName() {
+    return 'friends';
   }
 
-  cloneQuery() {
-    return knex(this.tableName).clone();
-  }
+  // static getRepository() {
+  //   if (!this.repository) {
+  //     this.repository = new this();
+  //   }
 
-  insert(attributes, returning = ['*']) {
-    return this.cloneQuery().insert(attributes).returning(returning);
-  }
+  //   return this.repository;
+  // }
 
   findByIdAndRelationship(userID, relationship, columns = ['*']) {
     return this.cloneQuery().where({ userA: userID, relationship })
@@ -33,11 +30,7 @@ class FriendRepository {
     return this.cloneQuery().where({ userA, userB }).update({ relationship }).returning(returning);
   }
 
-  getBy(clauses = {}, columns = ['*']) {
-    return this.cloneQuery().where(clauses).select(columns).first();
-  }
-
-  async insertFriend(idSender, idReceiver, message) {
+  insertFriend(idSender, idReceiver, message) {
     const friendFirst = {
       userA: idSender,
       userB: idReceiver,
@@ -53,9 +46,9 @@ class FriendRepository {
     };
 
     try {
-      await Promise.all([
-        this.insert(friendFirst, '*'),
-        this.insert(friendSecond, '*'),
+      return Promise.all([
+        this.create(friendFirst, '*'),
+        this.create(friendSecond, '*'),
       ]);
     } catch (err) {
       // console.error(err);

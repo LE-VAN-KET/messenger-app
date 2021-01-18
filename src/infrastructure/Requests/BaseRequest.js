@@ -1,16 +1,17 @@
-import { validationResult } from 'express-validator/check';
+import { validationResult } from 'express-validator';
 
 class BaseRequest {
-  static validate(req, res, next) {
+  constructor() {
+  }
+
+  validate(req, res, next) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
       return next();
     }
-
-    req.flash('oldValue', req.body);
-    req.flash('errors', errors.array());
-
-    return res.redirectBack();
+    // errors.array().forEach((val) => console.log(val.msg));
+    // req.flash('oldValue', req.body);
+    return res.status(500).json({ messages: req.flash('errors', errors.array()), success: errors.array()});
   }
 }
 

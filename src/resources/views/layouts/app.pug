@@ -7,6 +7,7 @@ head
   link(rel='icon' href='dist/images/favicon.png' type='image/png')
   link(rel='stylesheet' href='dist/css/soho.min.css')
   link(rel='stylesheet' href='dist/css/style.css')
+  link(rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css')
 
 body
   // disconnected modal
@@ -45,6 +46,7 @@ body
   script(src='https://www.gstatic.com/firebasejs/6.6.0/firebase-firestore.js')
   script(src='https://www.gstatic.com/firebasejs/6.6.0/firebase-storage.js')
   script(src='https://unpkg.com/axios/dist/axios.min.js')
+  script(src='http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js')
   script(src='dist/js/soho.min.js')
   script(src='dist/js/examples.js')
   script(src='/socket.io/socket.io.js')
@@ -61,20 +63,7 @@ body
     };
 
     firebase.initializeApp(firebaseConfig);
-  script.
-    $(function () {
-      const socket = io();
-      $('form#chat-message').submit((e) => {
-        e.preventDefault();
-        socket.emit('chat message', $('#chat-message input').val());
-        $('#chat-message input').val('');
-        return false;
-      })
-      socket.on('chat message', (msg) => {
-        $(.messages).append(`<div class="message-item outgoing-message"><div class="message-content">${msg}</div>
-        <div class="message-action">Am 09:34<i class="ti-double-check"></i></div></div>`);
-      })
-    })
+  script(src='dist/js/HandleMessage.js')
   script(src='dist/js/home.js')
   #ascrail2000.nicescroll-rails.nicescroll-rails-vr(style='width: 4px; z-index: auto; cursor: default; position: absolute; top: 530.797px; left: 1354px; height: 72px; display: none; opacity: 0;')
     .nicescroll-cursors(style='position: relative; top: 0px; float: right; width: 4px; height: 72px; background-color: rgba(66, 66, 66, 0.2); border: 0px; background-clip: padding-box; border-radius: 5px;')

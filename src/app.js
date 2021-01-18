@@ -2,8 +2,11 @@ import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
-// import logger from 'morgan';
+import logger from 'morgan';
 import 'dotenv/config';
+import session from 'express-session';
+import flash from 'connect-flash';
+import cors from 'cors';
 
 import initRoutes from './config/routes';
 
@@ -12,11 +15,22 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'resources/views'));
 app.set('view engine', 'pug');
+app.set('trust proxy', 1);
 
-// app.use(logger('dev'));
+app.use(logger('dev'));
 app.use(express.json());
+app.use(cors({ origin: /http:\/\/localhost/ }));
+app.use('*', cors());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser(process.env.SECRET_SESSION));
+app.use(session({ 
+  secret:process.env.SECRET_SESSION,
+  cookie: { maxAge: 60000 },
+  saveUninitialized: true, 
+  resave: true
+}));
+app.use(flash());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 initRoutes(app);

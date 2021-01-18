@@ -1,14 +1,9 @@
 import BaseRepository from '../../../infrastructure/Repositories/BaseRepository';
 
 class AuthRepository extends BaseRepository {
-  static repository;
-
-  static getRepository() {
-    if (!this.repository) {
-      this.repository = new this();
-    }
-
-    return this.repository;
+  constructor() {
+    super();
+    this.tableName = this.getTableName();
   }
 
   getTableName() {

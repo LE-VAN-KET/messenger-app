@@ -13,13 +13,13 @@ block content
     include partials/favorites-sidebar
 
   // chat
-  .chat
+  .chat#receiverId
     .chat-header
       .chat-header-user
         figure.avatar.avatar-lg
-          img.rounded-circle(src='dist/images/man_avatar3.jpg')
+          img#currentChattingAvatar.rounded-circle(src='dist/images/man_avatar3.jpg')
         div
-          h5 Karl Hubane
+          h5#currentChattingName Karl Hubane
           small.text-muted
             i Online
       .chat-header-action

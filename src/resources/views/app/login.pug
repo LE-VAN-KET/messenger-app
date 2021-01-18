@@ -3,6 +3,9 @@ extends ../layouts/sign
 block content
   h5 Sign in
 
+  if (messages.success)
+    each val in messages.success
+      .alert.alert-success= val
   form.signin
     .form-group.input-group-lg
       input#email.form-control(type='text' placeholder='email' required='' autofocus='')

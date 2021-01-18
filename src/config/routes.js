@@ -1,4 +1,6 @@
 import methodOverride from 'method-override';
+import dotenv from 'dotenv';
+dotenv.config();
 import routes from '../routes/index';
 
 export default function (app) {
@@ -22,6 +24,8 @@ export default function (app) {
       const backURL = req.header('Referer') || '/';
       return res.redirect(backURL);
     };
+    
+    res.locals.messages = req.flash();
 
     res.locals.firebaseApiKey = process.env.FIREBASE_API_KEY;
     res.locals.firebaseProjectId = process.env.FIREBASE_PROJECT_ID;

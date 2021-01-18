@@ -8,6 +8,7 @@ import debugLib from 'debug';
 import http from 'http';
 import socketIo from 'socket.io';
 import app from '../app';
+import connectionEvent from '../socket/connectionMessage';
 
 const debug = debugLib('messenger:server');
 /**
@@ -24,12 +25,7 @@ app.set('port', port);
 const server = http.createServer(app);
 const io = socketIo(server);
 
-io.on('connection', (socket) => {
-  socket.on('chat message', (msg) => {
-    // console.log('message: ' + msg);
-    io.emit('chat message', msg);
-  });
-});
+io.on('connection', connectionEvent);
 
 /**
  * Listen on provided port, on all network interfaces.

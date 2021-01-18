@@ -1,4 +1,23 @@
 $(document).ready(function () {
+  var readURL = function(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('.profile-pic').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $(".file-upload").on('change', function(){
+      readURL(this);
+  });
+
+  $(".upload-button").on('click', function() {
+    $(".file-upload").click();
+  });
 
   $('form.resgister').submit(function(event) {
     event.preventDefault();
@@ -21,7 +40,7 @@ $(document).ready(function () {
     firebase.auth().signInWithEmailAndPassword(email, password).then(function(user) {
       // alert('account login success');
       if (!firebase.auth().currentUser.emailVerified) {
-        alert('user not verify');
+        alert('user not verify email');
         return;
       }
 
@@ -31,11 +50,11 @@ $(document).ready(function () {
       }
       $.post('/login', body).then(async function(response) {
         localStorage.setItem('x-auth-token', response.accessToken);
-        localStorage.refreshToken = response.refreshToken;
         window.location.replace('http://localhost:3000/conversations');
         // console.log(window.axios.defaults.headers.common['Authorization']);
       })
     }).catch(function (error) {
+      console.log(error);
       alert(error.message);
     });
     // const sentLinkEmail = firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
@@ -53,23 +72,15 @@ $(document).ready(function () {
     var firstName = $('input[name="firstName"]').val();
     var email = $('input[name="email"]').val();
     var password = $('input[name="password"]').val();
-    var phoneNumber = $('input[name="phone"]').val();
-    // var imgName = $('input[name="avatar"]').val();
-    // var avatar = imgName.concat(date).split('\\');
-    // avatar = avatar[avatar.length-1];
-    // var files = [];
-    firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user) {
-      firebase.auth().currentUser.sendEmailVerification();
-    }).catch(function (error) {
-      alert(error.message);
-    })
+    // var phoneNumber = $('input[name="phone"]').val();
+    var confirmPassword = $('input[name="confirmPassword"]').val();
+    var avatar;
     const metadata = {
       contentType: 'image/jpeg',
     };
-
     const storage = firebase.storage().ref('images/' + file.name)
     const uploadTask = storage.put(file, metadata);
-    uploadTask.on("state_changed",
+    uploadTask.on('state_changed',
       function(snapshot) {
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log('Upload is ' + progress + '% done');
@@ -99,35 +110,37 @@ $(document).ready(function () {
       // Upload completed successfully, now we can get the download URL
       uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
         console.log('File available at', downloadURL);
+        avatar = downloadURL;
       });
     });
-    const appVerifier = window.recaptchaVerifier;
-    firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-    .then(function (confirmationResult) {
-      window.confirmationResult = confirmationResult;
-      $('form.register-app').remove();
-      $('#login-phone-step2').css('display', 'block');
-      $('#phone-number-verify').submit(function (event) {
-        event.preventDefault();
-        const code = $('input[name="code"]').val();
-        confirmationResult.confirm(code).then(function (result) {
-          var user = result.user;
-          const body = {
-            firstName,
-            lastName,
-            email,
-            password,
-            phoneNumber,
-            forceRefresh: user.refreshToken,
-            avatar: file.name
-          };
-          $.post('/register-app', body);
-          window.location.assign('http://localhost:3000/conversations');
-        })
+    // console.log(avatar);
+    const body = {
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword,
+      avatar,
+    };
+    $.post('http://localhost:3000/register', body).then((user) => {
+      firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user) {
+        firebase.auth().currentUser.sendEmailVerification();
+        window.location.assign('http://localhost:3000/login');
       })
-    }).catch(function (error) {
-      console.log(error);
-    })
+      .catch(err => {
+        alert(err.message);
+      })
+    }).catch(err => {
+      var user = firebase.auth().currentUser;
+      user.delete().then(function() {
+        // User deleted.
+        alert("Delete success");
+      }).catch(function(error) {
+        // An error happened.
+        alert(error);
+      });
+      location.reload();
+    });
   });
 
   $('#login-phone-number').submit(function (event) {
@@ -148,7 +161,6 @@ $(document).ready(function () {
           const code = $('input[name="code"]').val();
           confirmationResult.confirm(code).then(function (result) {
             var user = result.user;
-            console.log(user);
 
             const body = {
               firstName,

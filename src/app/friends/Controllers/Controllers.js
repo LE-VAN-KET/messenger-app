@@ -1,5 +1,5 @@
-import Service from './services';
-import BaseController from '../../infrastructure/Controllers/BaseController';
+import Service from '../Services/services';
+import BaseController from '../../../infrastructure/Controllers/BaseController';
 
 class FriendController extends BaseController {
     constructor() {
@@ -11,11 +11,11 @@ class FriendController extends BaseController {
         try {
             const { authUser } = req;
             const { emailReceiver, message } = req.body;
-            await this.Service.addFriendsReq(authUser, emailReceiver, message);
+            await this.Service.addFriendsRequest(authUser, emailReceiver, message);
             return res.status(200).json({ emailReceiver });
         } catch (err) {
             console.log(err);
-            return res.status(401).json({ message: 'Requested add friend failed' });
+            return res.status(500).json({ message: err });
         }
     }
 
@@ -24,7 +24,7 @@ class FriendController extends BaseController {
         // console.log(authUser);
         const listFriends = await this.Service.getAllReqFriends(authUser.id);
         // console.log(listFriends);
-        return res.json(listFriends);
+        return res.status(200).json({listFriends});
     }
 
     async allFriends(req, res) {
@@ -43,6 +43,12 @@ class FriendController extends BaseController {
         } catch (err) {
             return res.status(400).send('NOT ACCEPT');
         }
+    }
+
+    async getProfileOfFriend(req, res) {
+        const idFriend = req.query.id;
+        const profile = await this.Service.getInfoFriend(idFriend);
+        return res.status(200).json({ profile });
     }
 }
 

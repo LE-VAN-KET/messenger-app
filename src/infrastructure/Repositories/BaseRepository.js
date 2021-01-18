@@ -2,7 +2,7 @@ import knex from '../../database/connection';
 
 class BaseRepository {
   constructor() {
-    this.tableName = 'users';
+    this.tableName;
   }
 
   cloneQuery() {
