@@ -21,7 +21,7 @@
     "firebase-admin": "^8.5.0",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.19.5",
+    "knex": "^2.4.0",
     "method-override": "^3.0.0",
     "mongoose": "^5.11.11",
     "morgan": "~1.9.1",
